@@ -10,23 +10,33 @@
 </head>
 
 <body>
-
-  <h1>Todo</h1>
-
-  <!-- Add dynamic number --> items left
-
-  All
-  Active
-  Completed
-
-  Clear Completed
-
-  Drag and drop to reorder list
-
-  <div class="attribution">
+  <header>
+    <div class="content">
+      <h1>Todo</h1>
+      <button class="switch"></button>
+    </div>
+      <form action="#">
+        <input type="text">
+      </form>
+  </header>
+  <main>
+    <div class="todo">
+      <ul class="todo_list"></ul>
+      <span class="todo_left_number"></span>
+      <p class="todo_left">items left</p>
+      <button class="todo_delete_completed">Clear Completed</button>
+      <ul class="todo_sort">
+        <li class="todo_sort_item">All</li>
+        <li class="todo_sort_item">Active</li>
+        <li class="todo_sort_item">Completed</li>
+      </ul>
+      <p> Drag and drop to reorder list</p>
+    </div>
+  </main>
+  <footer>
     Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>.
     Coded by <a href="#">Maria Ushakova</a>.
-  </div>
+  </footer>
 </body>
 
 </html>

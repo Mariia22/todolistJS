@@ -1,0 +1,35 @@
+header{
+    background:url("../../images/bg-mobile-dark.jpg") no-repeat $very-light-gray;
+    display: flex;
+    flex-direction: column; 
+    align-items: center; 
+}
+
+.content{
+    padding: 36px 23px 37px 26px;
+    display: flex;
+    justify-content: space-between;
+}
+
+h1{
+    text-transform: uppercase;
+    letter-spacing: 0.3em;
+    color:$very-light-gray;
+    font-weight: 400px;
+    margin:0;
+    padding:0;
+}
+.switch{
+    background-image:url("../../images/icon-sun.svg");
+    width: 20px;
+    height: 20px;
+}
+input{
+    width: 330px;
+    height: 50px;
+    background-color: $very-dark-blue;
+    border-radius: 5%;
+    outline: none;
+   margin-bottom: 30px;
+
+}
