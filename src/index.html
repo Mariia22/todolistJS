@@ -15,16 +15,19 @@
       <h1>Todo</h1>
       <button class="switch"></button>
     </div>
-      <form action="#">
-        <input type="text">
-      </form>
+    <form action="#">
+      <div class="circle"></div>
+      <input type="text" placeholder="Create a new todo..">
+    </form>
   </header>
   <main>
     <div class="todo">
       <ul class="todo_list"></ul>
-      <span class="todo_left_number"></span>
-      <p class="todo_left">items left</p>
-      <button class="todo_delete_completed">Clear Completed</button>
+      <div class="todo_total">
+        <span class="todo_total_number"></span>
+        <p class="todo_total_items">items left</p>
+        <button class="todo_total_completed">Clear Completed</button>
+      </div>
       <ul class="todo_sort">
         <li class="todo_sort_item">All</li>
         <li class="todo_sort_item">Active</li>

@@ -1,0 +1,22 @@
+.todo{
+    display: flex;
+    flex-direction:column;
+    align-items:center;
+}
+
+.todo_total{
+    display: flex;
+    justify-content: space-between;
+    width: 80%;
+    background-color: $very-dark-desaturated-blue;
+    border-radius: 5%;
+    margin-top: -20px;
+    margin-bottom: 30px;
+    font-size: 0.8em;
+}
+.todo_total_completed{
+    background-color: $very-dark-desaturated-blue;
+    border: none;
+    outline: none;
+    color: #484b6a;
+}

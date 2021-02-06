@@ -1,6 +1,10 @@
 footer { 
     font-size: 11px; 
     text-align: center; 
+    display:flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    width: 100%;
 }
 footer a { 
     color: hsl(228, 45%, 44%);

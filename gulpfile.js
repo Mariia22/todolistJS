@@ -27,7 +27,7 @@ gulp.task("server", function () {
 
   gulp.watch("src/*.html", gulp.series("html", "refresh"));
   gulp.watch("src/sass/**/*.{scss,sass}", gulp.series("sass", "refresh"));
-  gulp.watch("src/images/*.+(jpg|jpeg|png|gif)", gulp.series("imgs", "refresh"));
+  gulp.watch("src/images/*.+(jpg|jpeg|png|gif|svg)", gulp.series("imgs", "refresh"));
 });
 
 // Обновление страницы
