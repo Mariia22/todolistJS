@@ -56,3 +56,9 @@ input::placeholder{
     top: 15px;
     left: 20px;
 }
+
+@media(min-width:373px){
+    header{
+        background:url("../../images/bg-desktop-dark.jpg") no-repeat $very-light-gray; 
+    }
+}
