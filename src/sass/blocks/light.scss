@@ -1,0 +1,24 @@
+.light{
+    .page{
+        background-color: $very-light-grayis-blue;
+    }
+    header{
+        background:url("../../images/bg-mobile-light.jpg") no-repeat $very-light-gray;
+    }
+    .header_switch{
+        background:url("../../images/icon-moon.svg") no-repeat transparent center;
+    }
+    .todo_sort{
+        background-color: $very-light-gray;
+    }
+    .todo_total{
+        background-color: $very-light-gray;
+    }
+    input{
+        background-color: $very-light-gray;
+        color: $very-light-gray;
+    }
+    .todo_total_completed{
+        background-color: $very-light-gray;
+    }
+}
