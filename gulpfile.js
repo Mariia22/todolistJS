@@ -49,7 +49,7 @@ gulp.task("html", function () {
 
 // Сжимаем картинки
 gulp.task('imgs', function () {
-  return gulp.src("src/images/*.+(jpg|jpeg|png|gif)")
+  return gulp.src("src/images/*.+(jpg|jpeg|png|gif|svg)")
     .pipe(imagemin({
       progressive: true,
       svgoPlugins: [{ removeViewBox: false }],
@@ -73,5 +73,10 @@ gulp.task("sass", function () {
     .pipe(server.stream());
 });
 
+//Копирование шрифтов
+gulp.task('fonts', function () {
+  return gulp.src('src/fonts/**/*')
+    .pipe(gulp.dest('dist/fonts'))
+})
 // Запуск тасков по умолчанию
-gulp.task("start", gulp.series("del", "html", "sass", "imgs", "server"));
+gulp.task("start", gulp.series("del", "html", "sass", "imgs", "fonts", "server"));

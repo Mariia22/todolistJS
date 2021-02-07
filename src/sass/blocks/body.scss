@@ -3,8 +3,13 @@
 }
 body{
     font-family: "Josefin Sans", sans-serif;
-    min-height: 100vh;
     font-size: $font-size;
     background-color: $font-color;
     color: $very-dark-grayish-blue;
+}
+.page{
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    min-height: 100vh;
 }

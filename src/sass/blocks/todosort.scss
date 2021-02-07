@@ -1,10 +1,8 @@
 .todo_sort{
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-between;
     background-color: $very-dark-desaturated-blue;
-    width:80%;
-}
-.todo_sort_item{
-    padding: 15px 20px;
-
+    width: 80%;
+    margin-bottom: 35px;
+    padding: 20px 50px;
 }
