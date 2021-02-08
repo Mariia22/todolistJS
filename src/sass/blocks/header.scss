@@ -61,4 +61,7 @@ input::placeholder{
     header{
         background:url("../../images/bg-desktop-dark.jpg") no-repeat $very-light-gray; 
     }
+    form{
+        width: 50%;
+    }
 }
