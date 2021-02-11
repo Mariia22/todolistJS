@@ -18,7 +18,7 @@
     float: right; 
     font-size: 0.7em;
     width: 50%;
-    margin: -10px 0 15px -30px;
+    margin: -10px 0 15px 0;
     padding: 15px;
     background-color: $very-dark-desaturated-blue;
     border-top-right-radius: 5px;
@@ -53,28 +53,33 @@
         display: flex;   
         flex-direction: row;
         justify-content: space-between;
-        font-size: 0.8em;
+        background-color: $very-dark-desaturated-blue;
         width: 100%; 
         margin-bottom: 50px;
         padding: 15px;
     }
     .todo_total_items{
-        display: flex;
+        font-size: 0.7em;
         order: 2;  
         margin: 0;
         padding: 0;  
     }
     .todo_total_completed{
-    display: flex;
-       order: 4;
-       margin: 0;
+        font-size: 0.7em;
+        order: 4;
+        margin: 0;
         padding: 0;
     }
     .todo_sort{
+        font-size: 0.8em;
+        font-weight: bold;
         order: 3;
         border-radius: 0;
         margin: 0;
         padding: 0;
+    }
+    .todo_sort_item{
+        padding-left: 10px;
     }
    
 }
