@@ -11,12 +11,12 @@
     .todo_sort{
         background-color: $very-light-gray;
     }
-    .todo_total{
-        background-color: $very-light-gray;
-    }
     input{
         background-color: $very-light-gray;
         color: $very-light-gray;
+    }
+    .todo_total_items{
+        background-color: $very-light-gray;
     }
     .todo_total_completed{
         background-color: $very-light-gray;
@@ -24,6 +24,9 @@
     @media(min-width:373px){
         header{
             background:url("../../images/bg-desktop-light.jpg") no-repeat $very-light-gray; 
+        }
+        .todo_total{
+            background-color: $very-light-gray;
         }
     }
 }
