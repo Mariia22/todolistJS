@@ -1,7 +1,7 @@
-import toggleMode from 'toggleMode';
+import toggleMode from './modules/toggleMode';
 
 window.addEventListener('DOMContentLoaded', () => {
-    'use strict';
-    toggleMode();
 
+    console.log('rtyt');
+    toggleMode();
 });

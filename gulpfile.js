@@ -14,6 +14,7 @@ var sass = require("gulp-sass"), // переводит SASS в CSS
   rename = require("gulp-rename"), // Переименование файлов
   server = require("browser-sync").create(),
   del = require("del");
+const babel = require('gulp-babel');
 
 // Сервер
 gulp.task("server", function () {
@@ -28,6 +29,7 @@ gulp.task("server", function () {
   gulp.watch("src/*.html", gulp.series("html", "refresh"));
   gulp.watch("src/sass/**/*.{scss,sass}", gulp.series("sass", "refresh"));
   gulp.watch("src/images/*.+(jpg|jpeg|png|gif|svg)", gulp.series("imgs", "refresh"));
+  gulp.watch("src/js/**/*.js", gulp.series("js", "refresh"));
 });
 
 // Обновление страницы
@@ -78,5 +80,16 @@ gulp.task('fonts', function () {
   return gulp.src('src/fonts/**/*')
     .pipe(gulp.dest('dist/fonts'))
 })
+
+//Обработка js
+gulp.task("js", function () {
+  return gulp
+    .src("src/js/**/*")
+    .pipe(babel({
+      presets: ["@babel/preset-env"]
+    }))
+    .pipe(gulp.dest("dist/js"));
+});
+
 // Запуск тасков по умолчанию
-gulp.task("start", gulp.series("del", "html", "sass", "imgs", "fonts", "server"));
+gulp.task("start", gulp.series("del", "html", "sass", "imgs", "js", "fonts", "server"));
