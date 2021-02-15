@@ -13,7 +13,7 @@
     }
     input{
         background-color: $very-light-gray;
-        color: $very-light-gray;
+        color: $very-dark-grayish-blue;
     }
     .todo_total_items{
         background-color: $very-light-gray;
@@ -27,9 +27,6 @@
         }
         .todo_total{
             background-color: $very-light-gray;
-        }
-        input{
-            color: $very-dark-grayish-blue;
         }
     }
 }
