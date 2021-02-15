@@ -12,30 +12,26 @@ toggleButton.addEventListener('click', function () {
   } else {
     body.classList.add('light');
   }
-}); //create new element
+}); //create new element and add to array
 
-function addNewItem(text) {
+function addNewItem(text, arr) {
   var todoItem = {
     text: text,
     id: new Date(),
     checked: false
   };
-}
+  arr.push(todoItem);
+} //fill new element
 
-function addItemToArray(arr, item) {
-  arr.push(item);
-}
 
 form.addEventListener('submit', function (e) {
   e.preventDefault();
   var text = input.value.trim();
-  console.log(text);
 
   if (text !== ' ') {
-    var todoItem = addNewItem(text);
-    console.log(todoItem);
-    addItemToArray(todoItems, todoItem);
-    console.log(todoItems);
+    addNewItem(text, todoItems);
     input.value = ' ';
   }
-});
+}); //render element
+
+function renderItem() {}

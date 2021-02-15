@@ -14,28 +14,27 @@ toggleButton.addEventListener('click', () => {
     }
 });
 
-//create new element
-function addNewItem(text) {
+//create new element and add to array
+function addNewItem(text, arr) {
     const todoItem = {
         text,
         id: new Date(),
         checked: false
     };
+    arr.push(todoItem);
 }
 
-function addItemToArray(arr, item) {
-    arr.push(item);
-}
-
+//fill new element
 form.addEventListener('submit', e => {
     e.preventDefault();
     const text = input.value.trim();
-    console.log(text);
     if (text !== ' ') {
-        const todoItem = addNewItem(text);
-        console.log(todoItem);
-        addItemToArray(todoItems, todoItem);
-        console.log(todoItems);
+        addNewItem(text, todoItems);
         input.value = ' ';
     }
 });
+
+//render element
+function renderItem() {
+
+}
