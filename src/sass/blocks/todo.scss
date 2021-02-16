@@ -3,6 +3,7 @@
     display: flex;
     flex-direction: column;
     font-size: 0.8em;
+    margin-top: -10px;
 }
 .todo_total_items{
     float:left; 
@@ -11,14 +12,14 @@
     border-top-left-radius: 5px;
     border-bottom-left-radius: 5px;
     width: 50%;
-    margin: -10px 0 15px 0;
+    margin-bottom: 15px;
     padding: 15px;    
 }
 .todo_total_completed{
     float: right; 
     font-size: 0.7em;
     width: 50%;
-    margin: -10px 0 15px 0;
+    margin-bottom: 15px;
     padding: 15px;
     background-color: $very-dark-desaturated-blue;
     border-top-right-radius: 5px;
@@ -43,7 +44,15 @@
 .todo_paragraph{
     text-align: center;
 }
-
+.todo_list{
+    background-color: $very-dark-desaturated-blue;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+.todo_list li{
+    border-bottom: 1px solid $dark-grayis-blue;  
+    padding: 15px;  
+}
 @media(min-width:373px){
     .todo{
         margin-top: -10px;

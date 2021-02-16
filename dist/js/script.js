@@ -4,6 +4,7 @@ var toggleButton = document.querySelector('.header_switch');
 var body = document.querySelector('body');
 var input = document.querySelector('input');
 var form = document.querySelector('form');
+var list = document.querySelector('.todo_list');
 var todoItems = []; // toggle dark\light mode 
 
 toggleButton.addEventListener('click', function () {
@@ -21,6 +22,13 @@ function addNewItem(text, arr) {
     checked: false
   };
   arr.push(todoItem);
+} //render element
+
+
+function renderItem(text) {
+  var item = document.createElement('li');
+  item.innerHTML = "".concat(text);
+  list.append(item);
 } //fill new element
 
 
@@ -30,8 +38,7 @@ form.addEventListener('submit', function (e) {
 
   if (text !== ' ') {
     addNewItem(text, todoItems);
+    renderItem(text);
     input.value = ' ';
   }
-}); //render element
-
-function renderItem() {}
+});
