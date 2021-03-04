@@ -18,16 +18,20 @@ toggleButton.addEventListener('click', function () {
 function addNewItem(text, arr) {
   var todoItem = {
     text: text,
-    id: new Date(),
+    id: Date.now(),
     checked: false
   };
+  renderItem(todoItem);
   arr.push(todoItem);
 } //render element
 
 
-function renderItem(text) {
+function renderItem(todoItem) {
   var item = document.createElement('li');
-  item.innerHTML = "".concat(text);
+  var isChecked = todoItem.checked ? 'done' : '';
+  item.setAttribute('data-key', todoItem.id);
+  item.setAttribute('class', "todo_item".concat(isChecked));
+  item.innerHTML = "\n    <input id=\"".concat(todoItem.id, "\" type=\"checkbox\"/>\n    <label for=\"").concat(todoItem.id, "\" class=\"todo_item_label\"></label>\n    <span>").concat(todoItem.text, "</span>");
   list.append(item);
 } //fill new element
 
@@ -38,7 +42,6 @@ form.addEventListener('submit', function (e) {
 
   if (text !== ' ') {
     addNewItem(text, todoItems);
-    renderItem(text);
     input.value = ' ';
   }
 });
