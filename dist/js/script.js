@@ -1,5 +1,7 @@
 "use strict";
 
+function _readOnlyError(name) { throw new TypeError("\"" + name + "\" is read-only"); }
+
 var toggleButton = document.querySelector('.header_switch');
 var body = document.querySelector('body');
 var input = document.querySelector('input');
@@ -27,6 +29,7 @@ function addNewItem(text, arr) {
 
 
 function renderItem(todoItem) {
+  localStorage.setItem = ('todoItems', JSON.stringify(todoItems));
   var item = document.querySelector("[data-key='".concat(todoItem.id, "']"));
   var node = document.createElement('li');
   var isChecked = todoItem.checked ? '-done' : '';
@@ -67,4 +70,16 @@ function toggleCheckbox(key) {
   todoItems[index].checked = !todoItems[index].checked;
   console.log(todoItems[index]);
   renderItem(todoItems[index]);
-}
+} //localStorage 
+
+
+document.addEventListener('DOMContentLoaded', function () {
+  var ref = localStorage.getItem('todoItems');
+
+  if (ref) {
+    todoItems = (_readOnlyError("todoItems"), JSON.parse(ref));
+    todoItems.forEach(function (item) {
+      return renderItem(item);
+    });
+  }
+});

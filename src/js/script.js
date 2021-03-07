@@ -28,6 +28,7 @@ function addNewItem(text, arr) {
 
 //render element
 function renderItem(todoItem) {
+    localStorage.setItem = ('todoItems', JSON.stringify(todoItems));
     const item = document.querySelector(`[data-key='${todoItem.id}']`);
     const node = document.createElement('li');
     const isChecked = todoItem.checked ? '-done' : '';
@@ -56,7 +57,6 @@ form.addEventListener('submit', e => {
 });
 
 //toggle chekbox
-
 list.addEventListener('click', event => {
     if (event.target.classList.contains('todo_item_label')) {
         const itemKey = event.target.parentElement.dataset.key;
@@ -70,3 +70,12 @@ function toggleCheckbox(key) {
     console.log(todoItems[index]);
     renderItem(todoItems[index]);
 }
+
+//localStorage 
+document.addEventListener('DOMContentLoaded', () => {
+    const ref = localStorage.getItem('todoItems');
+    if (ref) {
+        todoItems = JSON.parse(ref);
+        todoItems.forEach(item => renderItem(item));
+    }
+});
