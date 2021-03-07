@@ -28,24 +28,45 @@ function addNewItem(text, arr) {
 
 //render element
 function renderItem(todoItem) {
-    const item = document.createElement('li');
-    const isChecked = todoItem.checked ? 'done' : '';
-    item.setAttribute('data-key', todoItem.id);
-    item.setAttribute('class', `todo_item${isChecked}`);
-    item.innerHTML = `
+    const item = document.querySelector(`[data-key='${todoItem.id}']`);
+    const node = document.createElement('li');
+    const isChecked = todoItem.checked ? '-done' : '';
+    node.setAttribute('data-key', todoItem.id);
+    node.setAttribute('class', `todo_item${isChecked}`);
+    node.innerHTML = `
     <input id="${todoItem.id}" type="checkbox"/>
     <label for="${todoItem.id}" class="todo_item_label"></label>
     <span>${todoItem.text}</span>`;
-    list.append(item);
+    if (item) {
+        list.replaceChild(node, item);
+    } else {
+        list.append(node);
+    }
 }
 
 //fill new element
 form.addEventListener('submit', e => {
     e.preventDefault();
     const text = input.value.trim();
-    if (text !== ' ') {
+    if (text !== '') {
         addNewItem(text, todoItems);
-        input.value = ' ';
+        input.value = '';
+        input.focus();
     }
 });
 
+//toggle chekbox
+
+list.addEventListener('click', event => {
+    if (event.target.classList.contains('todo_item_label')) {
+        const itemKey = event.target.parentElement.dataset.key;
+        toggleCheckbox(itemKey);
+    }
+});
+
+function toggleCheckbox(key) {
+    const index = todoItems.findIndex(todoItem => todoItem.id === Number(key));
+    todoItems[index].checked = !todoItems[index].checked;
+    console.log(todoItems[index]);
+    renderItem(todoItems[index]);
+}

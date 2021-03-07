@@ -65,13 +65,17 @@
 input[type=checkbox]{  
     display: none; 
 }
-label:before{  
-    content: " ";
+
+label{  
     display: inline-block;
     height: 18px;
     width: 18px;
     border-radius: 50%;
     border:1px solid $very-dark-grayish-blue;
+}
+
+.todo_item-done .todo_item_label {
+     background: url("../../images/icon-check.svg") no-repeat center, linear-gradient(hsl(192, 100%, 67%), hsl(280, 87%, 65%)) ;
 }
 
 @media(min-width:373px){

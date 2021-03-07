@@ -27,12 +27,18 @@ function addNewItem(text, arr) {
 
 
 function renderItem(todoItem) {
-  var item = document.createElement('li');
-  var isChecked = todoItem.checked ? 'done' : '';
-  item.setAttribute('data-key', todoItem.id);
-  item.setAttribute('class', "todo_item".concat(isChecked));
-  item.innerHTML = "\n    <input id=\"".concat(todoItem.id, "\" type=\"checkbox\"/>\n    <label for=\"").concat(todoItem.id, "\" class=\"todo_item_label\"></label>\n    <span>").concat(todoItem.text, "</span>");
-  list.append(item);
+  var item = document.querySelector("[data-key='".concat(todoItem.id, "']"));
+  var node = document.createElement('li');
+  var isChecked = todoItem.checked ? '-done' : '';
+  node.setAttribute('data-key', todoItem.id);
+  node.setAttribute('class', "todo_item".concat(isChecked));
+  node.innerHTML = "\n    <input id=\"".concat(todoItem.id, "\" type=\"checkbox\"/>\n    <label for=\"").concat(todoItem.id, "\" class=\"todo_item_label\"></label>\n    <span>").concat(todoItem.text, "</span>");
+
+  if (item) {
+    list.replaceChild(node, item);
+  } else {
+    list.append(node);
+  }
 } //fill new element
 
 
@@ -40,8 +46,25 @@ form.addEventListener('submit', function (e) {
   e.preventDefault();
   var text = input.value.trim();
 
-  if (text !== ' ') {
+  if (text !== '') {
     addNewItem(text, todoItems);
-    input.value = ' ';
+    input.value = '';
+    input.focus();
+  }
+}); //toggle chekbox
+
+list.addEventListener('click', function (event) {
+  if (event.target.classList.contains('todo_item_label')) {
+    var itemKey = event.target.parentElement.dataset.key;
+    toggleCheckbox(itemKey);
   }
 });
+
+function toggleCheckbox(key) {
+  var index = todoItems.findIndex(function (todoItem) {
+    return todoItem.id === Number(key);
+  });
+  todoItems[index].checked = !todoItems[index].checked;
+  console.log(todoItems[index]);
+  renderItem(todoItems[index]);
+}
