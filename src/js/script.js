@@ -3,7 +3,9 @@ const body = document.querySelector('body');
 const input = document.querySelector('input');
 const form = document.querySelector('form');
 const list = document.querySelector('.todo_list');
-const todoItems = [];
+const total = document.querySelector('.todo_total_items');
+const deleteButton = document.querySelector('.todo_total_completed');
+let todoItems = [];
 
 // toggle dark\light mode 
 toggleButton.addEventListener('click', () => {
@@ -24,11 +26,11 @@ function addNewItem(text, arr) {
     };
     renderItem(todoItem);
     arr.push(todoItem);
+    localStorage.setItem('todoItemsRef', JSON.stringify(todoItems));
 }
 
 //render element
 function renderItem(todoItem) {
-    localStorage.setItem = ('todoItems', JSON.stringify(todoItems));
     const item = document.querySelector(`[data-key='${todoItem.id}']`);
     const node = document.createElement('li');
     const isChecked = todoItem.checked ? '-done' : '';
@@ -43,6 +45,12 @@ function renderItem(todoItem) {
     } else {
         list.append(node);
     }
+}
+//render list
+function renderList(arr) {
+    arr.forEach(item => {
+        renderItem(item)
+    });
 }
 
 //fill new element
@@ -61,21 +69,46 @@ list.addEventListener('click', event => {
     if (event.target.classList.contains('todo_item_label')) {
         const itemKey = event.target.parentElement.dataset.key;
         toggleCheckbox(itemKey);
+        totalItems();
     }
 });
 
 function toggleCheckbox(key) {
     const index = todoItems.findIndex(todoItem => todoItem.id === Number(key));
     todoItems[index].checked = !todoItems[index].checked;
-    console.log(todoItems[index]);
+    localStorage.setItem('todoItemsRef', JSON.stringify(todoItems));
     renderItem(todoItems[index]);
 }
 
 //localStorage 
 document.addEventListener('DOMContentLoaded', () => {
-    const ref = localStorage.getItem('todoItems');
+    const ref = localStorage.getItem('todoItemsRef');
     if (ref) {
         todoItems = JSON.parse(ref);
-        todoItems.forEach(item => renderItem(item));
+        renderList(todoItems);
     }
+    totalItems();
 });
+
+// total items left
+function totalItems() {
+    const todoItemsLeft = todoItems.filter(todoItem => {
+        return todoItem.checked === false
+    });
+    let totalElements = todoItemsLeft.length;
+    total.innerHTML = `<span>${totalElements} items left</span>`;
+}
+
+//delete button
+deleteButton.addEventListener('click', () => {
+    deleteElements();
+    renderList(todoItems);
+    totalItems();
+});
+
+function deleteElements() {
+    todoItems = todoItems.filter(item => {
+        return item.checked === false
+    });
+}
+
