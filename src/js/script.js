@@ -92,10 +92,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // total items left
 function totalItems() {
-    const todoItemsLeft = todoItems.filter(todoItem => {
-        return todoItem.checked === false
-    });
-    let totalElements = todoItemsLeft.length;
+    let totalElements = todoItems.reduce(function (acc, item) {
+        if (item.checked === false) {
+            return acc + 1;
+        }
+        else {
+            return acc;
+        }
+    }, 0);
     total.innerHTML = `<span>${totalElements} items left</span>`;
 }
 

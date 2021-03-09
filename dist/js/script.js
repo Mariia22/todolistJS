@@ -93,10 +93,13 @@ document.addEventListener('DOMContentLoaded', function () {
 }); // total items left
 
 function totalItems() {
-  var todoItemsLeft = todoItems.filter(function (todoItem) {
-    return todoItem.checked === false;
-  });
-  var totalElements = todoItemsLeft.length;
+  var totalElements = todoItems.reduce(function (acc, item) {
+    if (item.checked === false) {
+      return acc + 1;
+    } else {
+      return acc;
+    }
+  }, 0);
   total.innerHTML = "<span>".concat(totalElements, " items left</span>");
 } //delete button
 
