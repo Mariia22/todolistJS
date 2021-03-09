@@ -22,7 +22,8 @@ function addNewItem(text, arr) {
     const todoItem = {
         text,
         id: Date.now(),
-        checked: false
+        checked: false,
+        deleted: false
     };
     renderItem(todoItem);
     arr.push(todoItem);
@@ -40,17 +41,17 @@ function renderItem(todoItem) {
     <input id="${todoItem.id}" type="checkbox"/>
     <label for="${todoItem.id}" class="todo_item_label"></label>
     <span>${todoItem.text}</span>`;
+
+    if (todoItem.deleted === true) {
+        item.remove();
+        return
+    }
+
     if (item) {
         list.replaceChild(node, item);
     } else {
         list.append(node);
     }
-}
-//render list
-function renderList(arr) {
-    arr.forEach(item => {
-        renderItem(item)
-    });
 }
 
 //fill new element
@@ -59,6 +60,7 @@ form.addEventListener('submit', e => {
     const text = input.value.trim();
     if (text !== '') {
         addNewItem(text, todoItems);
+        totalItems(todoItems);
         input.value = '';
         input.focus();
     }
@@ -69,7 +71,7 @@ list.addEventListener('click', event => {
     if (event.target.classList.contains('todo_item_label')) {
         const itemKey = event.target.parentElement.dataset.key;
         toggleCheckbox(itemKey);
-        totalItems();
+        totalItems(todoItems);
     }
 });
 
@@ -87,12 +89,12 @@ document.addEventListener('DOMContentLoaded', () => {
         todoItems = JSON.parse(ref);
         renderList(todoItems);
     }
-    totalItems();
+    totalItems(todoItems);
 });
 
 // total items left
-function totalItems() {
-    let totalElements = todoItems.reduce(function (acc, item) {
+function totalItems(arr) {
+    let totalElements = arr.reduce(function (acc, item) {
         if (item.checked === false) {
             return acc + 1;
         }
@@ -107,12 +109,22 @@ function totalItems() {
 deleteButton.addEventListener('click', () => {
     deleteElements();
     renderList(todoItems);
-    totalItems();
+    totalItems(todoItems);
+    todoItems = todoItems.filter(todoItem => todoItem.deleted !== true);
+    localStorage.setItem('todoItemsRef', JSON.stringify(todoItems));
 });
 
 function deleteElements() {
-    todoItems = todoItems.filter(item => {
-        return item.checked === false
-    });
+    for (let i = 0; i < todoItems.length; i++) {
+        if (todoItems[i].checked === true) {
+            todoItems[i].deleted = true;
+        }
+    };
 }
 
+//render list
+function renderList(arr) {
+    arr.forEach(item => {
+        renderItem(item)
+    });
+}
