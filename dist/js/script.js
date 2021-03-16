@@ -172,4 +172,4 @@ filter.addEventListener('click', function (event) {
       listItems[_i2].classList.remove('todo_item-hide');
     }
   }
-});
+}); //drag and drop

@@ -146,7 +146,6 @@ filter.addEventListener('click', event => {
                 listItems[i].classList.add('todo_item-hide');
             }
         }
-
     }
     else if (event.target.classList.contains('completed')) {
         event.target.classList.add('todo_sort_item-active');
@@ -163,6 +162,6 @@ filter.addEventListener('click', event => {
             listItems[i].classList.remove('todo_item-hide');
         }
     }
-
-
 })
+
+//drag and drop
