@@ -51,12 +51,6 @@
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
 }
-.todo_list li{
-    display:flex;
-    border-bottom: 1px solid $dark-grayis-blue;  
-    padding: 15px; 
-
-}
 .todo_list li span{
     padding-top: 3px;
     padding-left: 15px;
@@ -78,6 +72,15 @@ label{
 
 .todo_item-done .todo_item_label {
      background: url("../../images/icon-check.svg") no-repeat center, linear-gradient(hsl(192, 100%, 67%), hsl(280, 87%, 65%)) ;
+}
+
+.todo_item-hide{
+    display: none;
+}
+
+.todo_item-done, .todo_item{
+    border-bottom: 1px solid $dark-grayis-blue;  
+    padding: 15px; 
 }
 
 @media(min-width:373px){

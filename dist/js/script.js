@@ -7,6 +7,8 @@ var form = document.querySelector('form');
 var list = document.querySelector('.todo_list');
 var total = document.querySelector('.todo_total_items');
 var deleteButton = document.querySelector('.todo_total_completed');
+var filter = document.querySelector('.todo_sort');
+var filterItems = document.querySelectorAll('.todo_sort_item');
 var todoItems = []; // toggle dark\light mode 
 
 toggleButton.addEventListener('click', function () {
@@ -129,4 +131,45 @@ function renderList(arr) {
   arr.forEach(function (item) {
     renderItem(item);
   });
-}
+} //filter
+
+
+filter.addEventListener('click', function (event) {
+  if (!event.target.tagName === 'li') {
+    return false;
+  }
+
+  var listItems = list.getElementsByTagName('li');
+  var itemsLength = listItems.length;
+  filterItems.forEach(function (item) {
+    return item.classList.contains('todo_sort_item-active') ? item.classList.remove('todo_sort_item-active') : false;
+  });
+
+  if (event.target.classList.contains('active')) {
+    event.target.classList.add('todo_sort_item-active');
+
+    for (var i = 0; i < itemsLength; i++) {
+      listItems[i].classList.remove('todo_item-hide');
+
+      if (listItems[i].classList.contains('todo_item-done')) {
+        listItems[i].classList.add('todo_item-hide');
+      }
+    }
+  } else if (event.target.classList.contains('completed')) {
+    event.target.classList.add('todo_sort_item-active');
+
+    for (var _i = 0; _i < itemsLength; _i++) {
+      listItems[_i].classList.remove('todo_item-hide');
+
+      if (!listItems[_i].classList.contains('todo_item-done')) {
+        listItems[_i].classList.add('todo_item-hide');
+      }
+    }
+  } else {
+    event.target.classList.add('todo_sort_item-active');
+
+    for (var _i2 = 0; _i2 < itemsLength; _i2++) {
+      listItems[_i2].classList.remove('todo_item-hide');
+    }
+  }
+});

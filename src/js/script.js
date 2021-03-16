@@ -5,6 +5,8 @@ const form = document.querySelector('form');
 const list = document.querySelector('.todo_list');
 const total = document.querySelector('.todo_total_items');
 const deleteButton = document.querySelector('.todo_total_completed');
+const filter = document.querySelector('.todo_sort');
+const filterItems = document.querySelectorAll('.todo_sort_item');
 let todoItems = [];
 
 // toggle dark\light mode 
@@ -121,10 +123,46 @@ function deleteElements() {
         }
     };
 }
-
 //render list
 function renderList(arr) {
     arr.forEach(item => {
-        renderItem(item)
+        renderItem(item);
     });
 }
+
+//filter
+filter.addEventListener('click', event => {
+    if (!event.target.tagName === ('li')) {
+        return false;
+    }
+    const listItems = list.getElementsByTagName('li');
+    const itemsLength = listItems.length;
+    filterItems.forEach(item => item.classList.contains('todo_sort_item-active') ? item.classList.remove('todo_sort_item-active') : false);
+    if (event.target.classList.contains('active')) {
+        event.target.classList.add('todo_sort_item-active');
+        for (let i = 0; i < itemsLength; i++) {
+            listItems[i].classList.remove('todo_item-hide');
+            if (listItems[i].classList.contains('todo_item-done')) {
+                listItems[i].classList.add('todo_item-hide');
+            }
+        }
+
+    }
+    else if (event.target.classList.contains('completed')) {
+        event.target.classList.add('todo_sort_item-active');
+        for (let i = 0; i < itemsLength; i++) {
+            listItems[i].classList.remove('todo_item-hide');
+            if (!listItems[i].classList.contains('todo_item-done')) {
+                listItems[i].classList.add('todo_item-hide');
+            }
+        }
+    }
+    else {
+        event.target.classList.add('todo_sort_item-active');
+        for (let i = 0; i < itemsLength; i++) {
+            listItems[i].classList.remove('todo_item-hide');
+        }
+    }
+
+
+})
