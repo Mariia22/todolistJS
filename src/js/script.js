@@ -3,6 +3,7 @@ const body = document.querySelector('body');
 const input = document.querySelector('input');
 const form = document.querySelector('form');
 const list = document.querySelector('.todo_list');
+const listItems = list.getElementsByTagName('li');
 const total = document.querySelector('.todo_total_items');
 const deleteButton = document.querySelector('.todo_total_completed');
 const filter = document.querySelector('.todo_sort');
@@ -135,7 +136,6 @@ filter.addEventListener('click', event => {
     if (!event.target.tagName === ('li')) {
         return false;
     }
-    const listItems = list.getElementsByTagName('li');
     const itemsLength = listItems.length;
     filterItems.forEach(item => item.classList.contains('todo_sort_item-active') ? item.classList.remove('todo_sort_item-active') : false);
     if (event.target.classList.contains('active')) {
@@ -165,3 +165,36 @@ filter.addEventListener('click', event => {
 })
 
 //drag and drop
+for (const item of listItems) {
+    item.draggable = true;
+}
+
+list.addEventListener('dragstart', event => {
+    event.target.classList.add('todo_item-selected');
+});
+
+list.addEventListener('dragend', event => {
+    event.target.classList.remove('todo_item-selected');
+});
+
+list.addEventListener('dragover', event => {
+    event.preventDefault();
+    const currentElement = event.target;
+    const activeElement = list.querySelector('.todo_item-selected');
+    const isMove = currentElement !== activeElement && (currentElement.classList.contains('todo_item') || currentElement.classList.contains('todo_item-done'));
+    if (!isMove) {
+        return;
+    }
+    const getNextElement = (cursorPosition, currentElement) => {
+        const currentElementCoord = currentElement.getBoundingClientRect();
+        const currentElementCenter = currentElementCoord.y + currentElementCoord.height / 2;
+        const nextElement = (cursorPosition < currentElementCenter) ? currentElement : currentElement.nextElementSibling;
+        return nextElement;
+    }
+    const nextElement = getNextElement(event.clientY, currentElement);
+
+    if (nextElement && activeElement === nextElement.previousElementSibling || activeElement === nextElement) { return; }
+
+    list.insertBefore(activeElement, nextElement);
+});
+

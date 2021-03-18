@@ -79,8 +79,12 @@ label{
 }
 
 .todo_item-done, .todo_item{
+    cursor: move;
     border-bottom: 1px solid $dark-grayis-blue;  
     padding: 15px; 
+}
+.todo_item-selected{
+    opacity: 0.5;
 }
 
 @media(min-width:373px){

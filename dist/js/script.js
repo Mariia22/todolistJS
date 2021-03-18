@@ -1,10 +1,17 @@
 "use strict";
 
+function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
 var toggleButton = document.querySelector('.header_switch');
 var body = document.querySelector('body');
 var input = document.querySelector('input');
 var form = document.querySelector('form');
 var list = document.querySelector('.todo_list');
+var listItems = list.getElementsByTagName('li');
 var total = document.querySelector('.todo_total_items');
 var deleteButton = document.querySelector('.todo_total_completed');
 var filter = document.querySelector('.todo_sort');
@@ -139,7 +146,6 @@ filter.addEventListener('click', function (event) {
     return false;
   }
 
-  var listItems = list.getElementsByTagName('li');
   var itemsLength = listItems.length;
   filterItems.forEach(function (item) {
     return item.classList.contains('todo_sort_item-active') ? item.classList.remove('todo_sort_item-active') : false;
@@ -173,3 +179,49 @@ filter.addEventListener('click', function (event) {
     }
   }
 }); //drag and drop
+
+var _iterator = _createForOfIteratorHelper(listItems),
+    _step;
+
+try {
+  for (_iterator.s(); !(_step = _iterator.n()).done;) {
+    var item = _step.value;
+    item.draggable = true;
+  }
+} catch (err) {
+  _iterator.e(err);
+} finally {
+  _iterator.f();
+}
+
+list.addEventListener('dragstart', function (event) {
+  event.target.classList.add('todo_item-selected');
+});
+list.addEventListener('dragend', function (event) {
+  event.target.classList.remove('todo_item-selected');
+});
+list.addEventListener('dragover', function (event) {
+  event.preventDefault();
+  var currentElement = event.target;
+  var activeElement = list.querySelector('.todo_item-selected');
+  var isMove = currentElement !== activeElement && (currentElement.classList.contains('todo_item') || currentElement.classList.contains('todo_item-done'));
+
+  if (!isMove) {
+    return;
+  }
+
+  var getNextElement = function getNextElement(cursorPosition, currentElement) {
+    var currentElementCoord = currentElement.getBoundingClientRect();
+    var currentElementCenter = currentElementCoord.y + currentElementCoord.height / 2;
+    var nextElement = cursorPosition < currentElementCenter ? currentElement : currentElement.nextElementSibling;
+    return nextElement;
+  };
+
+  var nextElement = getNextElement(event.clientY, currentElement);
+
+  if (nextElement && activeElement === nextElement.previousElementSibling || activeElement === nextElement) {
+    return;
+  }
+
+  list.insertBefore(activeElement, nextElement);
+});
