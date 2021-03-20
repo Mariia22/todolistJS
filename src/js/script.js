@@ -10,6 +10,10 @@ const filter = document.querySelector('.todo_sort');
 const filterItems = document.querySelectorAll('.todo_sort_item');
 let todoItems = [];
 
+for (const item of listItems) {
+    item.draggable = true;
+}
+
 // toggle dark\light mode 
 toggleButton.addEventListener('click', () => {
     if (body.classList.contains('light')) {
@@ -165,22 +169,19 @@ filter.addEventListener('click', event => {
 })
 
 //drag and drop
-for (const item of listItems) {
-    item.draggable = true;
-}
 
-list.addEventListener('dragstart', event => {
+list.addEventListener('dragstart', (event) => {
     event.target.classList.add('todo_item-selected');
 });
 
-list.addEventListener('dragend', event => {
+list.addEventListener('dragend', (event) => {
     event.target.classList.remove('todo_item-selected');
 });
 
-list.addEventListener('dragover', event => {
+list.addEventListener('dragover', (event) => {
     event.preventDefault();
     const currentElement = event.target;
-    const activeElement = list.querySelector('.todo_item-selected');
+    const activeElement = document.querySelector('.todo_item-selected');
     const isMove = currentElement !== activeElement && (currentElement.classList.contains('todo_item') || currentElement.classList.contains('todo_item-done'));
     if (!isMove) {
         return;

@@ -16,7 +16,22 @@ var total = document.querySelector('.todo_total_items');
 var deleteButton = document.querySelector('.todo_total_completed');
 var filter = document.querySelector('.todo_sort');
 var filterItems = document.querySelectorAll('.todo_sort_item');
-var todoItems = []; // toggle dark\light mode 
+var todoItems = [];
+
+var _iterator = _createForOfIteratorHelper(listItems),
+    _step;
+
+try {
+  for (_iterator.s(); !(_step = _iterator.n()).done;) {
+    var item = _step.value;
+    item.draggable = true;
+  } // toggle dark\light mode 
+
+} catch (err) {
+  _iterator.e(err);
+} finally {
+  _iterator.f();
+}
 
 toggleButton.addEventListener('click', function () {
   if (body.classList.contains('light')) {
@@ -180,20 +195,6 @@ filter.addEventListener('click', function (event) {
   }
 }); //drag and drop
 
-var _iterator = _createForOfIteratorHelper(listItems),
-    _step;
-
-try {
-  for (_iterator.s(); !(_step = _iterator.n()).done;) {
-    var item = _step.value;
-    item.draggable = true;
-  }
-} catch (err) {
-  _iterator.e(err);
-} finally {
-  _iterator.f();
-}
-
 list.addEventListener('dragstart', function (event) {
   event.target.classList.add('todo_item-selected');
 });
@@ -203,7 +204,7 @@ list.addEventListener('dragend', function (event) {
 list.addEventListener('dragover', function (event) {
   event.preventDefault();
   var currentElement = event.target;
-  var activeElement = list.querySelector('.todo_item-selected');
+  var activeElement = document.querySelector('.todo_item-selected');
   var isMove = currentElement !== activeElement && (currentElement.classList.contains('todo_item') || currentElement.classList.contains('todo_item-done'));
 
   if (!isMove) {
